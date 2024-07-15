@@ -2,18 +2,28 @@ CC = g++
 
 CFLAGS = -Wall -std=c++17
 
+# Executable File name
 TARGET = main
 
-SRCS = $(wildcard src/*.cpp)
-HDRS = $(wildcard src/*.hpp)
+# DIR name of source
+SRC_DIR = src
 
-OBJS = $(patsubst src/%.cpp, obj/%.o, $(SRCS))
+# DIR name of obj
+OBJ_DIR = obj
+
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+HDRS = $(wildcard $(SRC_DIR)/*.hpp)
+
+OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
+
+all: $(TARGET) post_build
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-obj/%.o: src/%.cpp $(HDRS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(HDRS)
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-	rm -f $(OBJS)
+post_build:
+	rm -rf $(OBJ_DIR)
