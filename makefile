@@ -12,7 +12,7 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
-HDRS = $(wildcard $(SRC_DIR)/*.hpp)
+HDRS = $(wildcard $(SRC_DIR)/*.hpp $(SRC_DIR)/*.h)
 
 OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
